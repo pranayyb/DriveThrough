@@ -139,10 +139,10 @@ func (e EngineStore) DeleteEngine(ctx context.Context, id string) (models.Engine
 	defer func() {
 		if err != nil {
 			if rbErr := tx.Rollback(); rbErr != nil {
-				fmt.Println("failed to rollback transaction: %v", rbErr)
+				fmt.Println("failed to rollback transaction: %w", rbErr)
 			}
 			if cmErr := tx.Commit(); cmErr != nil {
-				fmt.Println("could not commit properly: %v", cmErr)
+				fmt.Println("could not commit properly: %w", cmErr)
 			}
 		}
 	}()
@@ -171,6 +171,6 @@ func (e EngineStore) DeleteEngine(ctx context.Context, id string) (models.Engine
 	if rowsAffected == 0 {
 		return models.Engine{}, fmt.Errorf("no rows were deleted")
 	}
-	
+
 	return engine, nil
 }
