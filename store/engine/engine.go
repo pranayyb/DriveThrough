@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-
 	"github.com/google/uuid"
 	"github.com/pranayyb/DriveThrough/models"
 )
@@ -30,11 +29,11 @@ func (e EngineStore) GetEngineById(ctx context.Context, id string) (models.Engin
 	defer func() {
 		if err != nil {
 			if rbErr := tx.Rollback(); rbErr != nil {
-				fmt.Println("failed to rollback transaction: %v", rbErr)
+				fmt.Println("failed to rollback transaction: %w", rbErr)
 			}
 		} else {
 			if cmErr := tx.Commit(); cmErr != nil {
-				fmt.Println("could not commit properly: %v", cmErr)
+				fmt.Println("could not commit properly: %w", cmErr)
 			}
 		}
 	}()
@@ -63,11 +62,11 @@ func (e EngineStore) CreateEngine(ctx context.Context, engineReq *models.EngineR
 	defer func() {
 		if err != nil {
 			if rbErr := tx.Rollback(); rbErr != nil {
-				fmt.Println("failed to rollback transaction: %v", rbErr)
+				fmt.Println("failed to rollback transaction: %w", rbErr)
 			}
 		} else {
 			if cmErr := tx.Commit(); cmErr != nil {
-				fmt.Println("could not commit properly: %v", cmErr)
+				fmt.Println("could not commit properly: %w", cmErr)
 			}
 		}
 	}()
@@ -99,10 +98,10 @@ func (e EngineStore) UpdateEngine(ctx context.Context, id string, engine *models
 	defer func() {
 		if err != nil {
 			if rbErr := tx.Rollback(); rbErr != nil {
-				fmt.Errorf("failed to rollback transaction: %w", rbErr)
+				fmt.Println("failed to rollback transaction: %w", rbErr)
 			}
 			if cmErr := tx.Commit(); cmErr != nil {
-				fmt.Errorf("could not commit properly: %w", cmErr)
+				fmt.Println("could not commit properly: %w", cmErr)
 			}
 		}
 	}()
