@@ -86,7 +86,7 @@ func (h *CarHandler) CreateCar(w http.ResponseWriter, r *http.Request) {
 	err = json.Unmarshal(body, &carReq)
 	if err != nil {
 		log.Println("error while un-marshalling request: ", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
@@ -104,7 +104,7 @@ func (h *CarHandler) CreateCar(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusCreated)
 
 	_, err = w.Write(responseBody)
 	if err != nil {
@@ -159,7 +159,7 @@ func (h *CarHandler) DeleteCar(w http.ResponseWriter, r *http.Request) {
 	id := params["id"]
 	deletedCar, err := h.service.DeleteCar(id, ctx)
 	if err != nil {
-		log.Println("Error while Updating the Car :", err)
+		log.Println("Error while deleting the Car :", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
