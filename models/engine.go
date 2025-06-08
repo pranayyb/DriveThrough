@@ -19,7 +19,7 @@ type EngineRequest struct {
 	CarRange      int64 `json:"carRange"`
 }
 
-func ValidateEngineRequest(engine Engine) error {
+func ValidateEngineRequest(engine EngineRequest) error {
 	if err := validateDisplacement(engine.Displacement); err != nil {
 		return err
 	}
@@ -32,8 +32,8 @@ func ValidateEngineRequest(engine Engine) error {
 	return nil
 }
 
-func validateDisplacement(displacemnt int64) error {
-	if displacemnt <= 0 {
+func validateDisplacement(displacement int64) error {
+	if displacement <= 0 {
 		return errors.New("displacement must be greater than 0")
 	}
 	return nil

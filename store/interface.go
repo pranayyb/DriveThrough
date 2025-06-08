@@ -2,7 +2,6 @@ package store
 
 import (
 	"context"
-
 	"github.com/pranayyb/DriveThrough/models"
 )
 
@@ -12,4 +11,11 @@ type CarStoreInterface interface {
 	CreateCar(ctx context.Context, carReq *models.CarRequest) (models.Car, error)
 	UpdateCar(ctx context.Context, id string, carReq *models.CarRequest) (models.Car, error)
 	DeleteCar(ctx context.Context, id string) (models.Car, error)
+}
+
+type EngineStoreInterface interface {
+	GetEngineById(ctx context.Context, id string) (models.Engine, error)
+	CreateEngine(ctx context.Context, engineReq *models.EngineRequest) (models.Engine, error)
+	UpdateEngine(ctx context.Context, id string, engine *models.EngineRequest) (models.Engine, error)
+	DeleteEngine(ctx context.Context, id string) (models.Engine, error)
 }
