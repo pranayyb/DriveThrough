@@ -3,6 +3,7 @@ package driver
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 	"log"
 	"os"
 	"time"
@@ -22,10 +23,12 @@ func InitDB() {
 	fmt.Println("Starting up Database....")
 	time.Sleep(5 * time.Second)
 
-	db, err := sql.Open("postgres", connStr)
+	var err error
+	db, err = sql.Open("postgres", connStr) // ✅ assign to the package-level variable
 	if err != nil {
 		log.Fatalf("error opening database: %v", err)
 	}
+
 	err = db.Ping()
 	if err != nil {
 		log.Fatalf("error connecting to database: %v", err)
@@ -39,7 +42,9 @@ func GetDB() *sql.DB {
 }
 
 func CloseDB() {
-	if err := db.Close(); err != nil {
-		log.Fatalf("Error closing database: %v", err)
+	if db != nil {
+		if err := db.Close(); err != nil {
+			log.Fatalf("Error closing database: %v", err)
+		}
 	}
 }

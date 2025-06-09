@@ -50,16 +50,16 @@ func main() {
 	router.HandleFunc("/cars/{id}", carHandler.UpdateCar).Methods("PUT")
 	router.HandleFunc("/cars/{id}", carHandler.DeleteCar).Methods("DELETE")
 
-	router.HandleFunc("engine/{id}", engineHandler.GetEngineById).Methods("GET")
-	router.HandleFunc("engine", engineHandler.CreateEngine).Methods("POST")
-	router.HandleFunc("engine/{id}", engineHandler.UpdateEngine).Methods("PUT")
-	router.HandleFunc("engine/{id}", engineHandler.DeleteEngine).Methods("DELETE")
+	router.HandleFunc("/engine/{id}", engineHandler.GetEngineById).Methods("GET")
+	router.HandleFunc("/engine", engineHandler.CreateEngine).Methods("POST")
+	router.HandleFunc("/engine/{id}", engineHandler.UpdateEngine).Methods("PUT")
+	router.HandleFunc("/engine/{id}", engineHandler.DeleteEngine).Methods("DELETE")
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
-	addr := fmt.Sprintf("Port: %s", port)
+	addr := fmt.Sprintf(":%s", port)
 	log.Printf("Server listening on port: %s", addr)
 	log.Fatal(http.ListenAndServe(addr, router))
 
